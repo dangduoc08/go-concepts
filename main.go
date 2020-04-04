@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"runtime"
 )
 
 func main() {
-	fmt.Println(runtime.NumCPU())
+	fmt.Println("Import package to invoke concept functions")
 }

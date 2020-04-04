@@ -1,4 +1,4 @@
-package inf
+package intf
 
 import "fmt"
 

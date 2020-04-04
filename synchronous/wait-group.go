@@ -1,4 +1,4 @@
-package sync
+package synchronous
 
 import (
 	"fmt"
@@ -6,13 +6,7 @@ import (
 	"time"
 )
 
-var flag int32 = 0
-
-func parallelOnce(wg *sync.WaitGroup, once *sync.Once) {
-	once.Do(func() {
-		flag++
-		fmt.Println("Flag:", flag)
-	})
+func parallelWaitGroup(wg *sync.WaitGroup) {
 	fmt.Println("A")
 	time.Sleep(100 * time.Millisecond)
 	fmt.Println("B")
@@ -23,14 +17,13 @@ func parallelOnce(wg *sync.WaitGroup, once *sync.Once) {
 	wg.Done()
 }
 
-// Once comment
-func Once() {
+// WaitGroup func
+func WaitGroup() {
 	var wg *sync.WaitGroup = &sync.WaitGroup{}
-	var once *sync.Once = &sync.Once{}
 
 	for i := 0; i < 3; i++ {
 		wg.Add(1)
-		go parallelOnce(wg, once)
-		wg.Wait()
+		go parallelWaitGroup(wg)
 	}
+	wg.Wait()
 }

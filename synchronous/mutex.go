@@ -1,4 +1,4 @@
-package sync
+package synchronous
 
 import (
 	"fmt"
@@ -6,7 +6,10 @@ import (
 	"time"
 )
 
-func parallelWaitGroup(wg *sync.WaitGroup) {
+func parallelLock(wg *sync.WaitGroup, mu *sync.Mutex) {
+	mu.Lock()
+	defer mu.Unlock()
+
 	fmt.Println("A")
 	time.Sleep(100 * time.Millisecond)
 	fmt.Println("B")
@@ -17,13 +20,14 @@ func parallelWaitGroup(wg *sync.WaitGroup) {
 	wg.Done()
 }
 
-// WaitGroup comment
-func WaitGroup() {
+// Lock func
+func Lock() {
 	var wg *sync.WaitGroup = &sync.WaitGroup{}
+	var mu *sync.Mutex = &sync.Mutex{}
 
 	for i := 0; i < 3; i++ {
 		wg.Add(1)
-		go parallelWaitGroup(wg)
+		go parallelLock(wg, mu)
 	}
 	wg.Wait()
 }

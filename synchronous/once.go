@@ -1,4 +1,4 @@
-package sync
+package synchronous
 
 import (
 	"fmt"
@@ -6,10 +6,13 @@ import (
 	"time"
 )
 
-func parallelLock(wg *sync.WaitGroup, mu *sync.Mutex) {
-	mu.Lock()
-	defer mu.Unlock()
+var flag int32 = 0
 
+func parallelOnce(wg *sync.WaitGroup, once *sync.Once) {
+	once.Do(func() {
+		flag++
+		fmt.Println("Flag:", flag)
+	})
 	fmt.Println("A")
 	time.Sleep(100 * time.Millisecond)
 	fmt.Println("B")
@@ -20,14 +23,14 @@ func parallelLock(wg *sync.WaitGroup, mu *sync.Mutex) {
 	wg.Done()
 }
 
-// Lock comment
-func Lock() {
+// Once func
+func Once() {
 	var wg *sync.WaitGroup = &sync.WaitGroup{}
-	var mu *sync.Mutex = &sync.Mutex{}
+	var once *sync.Once = &sync.Once{}
 
 	for i := 0; i < 3; i++ {
 		wg.Add(1)
-		go parallelLock(wg, mu)
+		go parallelOnce(wg, once)
+		wg.Wait()
 	}
-	wg.Wait()
 }

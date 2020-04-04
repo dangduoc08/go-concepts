@@ -1,16 +1,16 @@
-package infextender
+package intfextender
 
 import (
 	"fmt"
-	"go-lang/inf"
+	"golang-concepts/intf"
 )
 
 type dog struct {
-	inf.Animal
+	intf.Animal
 }
 
 type animalExtender interface {
-	inf.Animal
+	intf.Animal
 	move() string
 }
 
@@ -20,7 +20,7 @@ func (d dog) move() string {
 
 // Extend func
 func Extend() {
-	var aDogExtender dog = dog{inf.AnAnimal}
+	var aDogExtender dog = dog{intf.AnAnimal}
 	var anAnimalExtend animalExtender = aDogExtender
 
 	var dogMove string = anAnimalExtend.move()
