@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"golang-concepts/channel"
 )
 
 func main() {
-	fmt.Println("Import package to invoke concept functions")
+	channel.Select()
 }

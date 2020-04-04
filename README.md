@@ -13,3 +13,8 @@
 * **Extends interface:** To demo how to extends an interface in Go lang.
 
 ### 3. Channel package:
+* **Buffered channel:** Use channel to communicate among Go routines.
+  
+* **Select:** To handle multi channel in one Go routine.
+
+* **Unbuffered channel:** Unbuffered channel won't block until capacity channel full. 
